@@ -3,28 +3,48 @@
   <head>
     <link href="main.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700italic' rel='stylesheet' type='text/css'>
     <script src = "weatherController.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
 
 
-<body class = "main" ng-app = "weatherApp" ng-controller = "weatherController">
+  <header class="header">
+    <p class="title">The Weather App</p>
+  </header>
 
-  <div class = "title">Search Your Local Weather</div>
+  <body class = "main" ng-app = "weatherApp" ng-controller = "weatherController">
 
-  <!-- search field -->
-  <form name="Form">
-    <input ng-model="zipcode" ng-pattern="/^\d+$/"  class="input" placeholder = "Enter your zip code">
-    <button ng-model = "showDetail" ng-click = "weatherSearch()">Search</button>
-  </form>
 
-  <!-- search detail -->
-  <div class = "content" ng-show = "showDetail">
-   <span class="data">{{ weather.main | uppercase }}<img align = "top" ng-src = "{{ icon }}"/></span>
-   <span class="data">{{ fTemp }}</span><span class="data">{{ cTemp }}</span>
-   <span class="data">{{ name }}</span><span class="data">{{ country }}</span>
-  </div>
+    <!-- search field -->
 
-</body>
+      <input type="text" ng-model="zipcode" placeholder="city (country)" />
+    <button id="alt" class="fa fa-search pointer" aria-hidden="true" ng-click="weatherSearch()"></button>
+
+
+
+  <!--   Local weather information -->
+  <!--   <span class="article-font">{{ weather.main | uppercase }}<img align = "top" ng-src = "{{ icon }}"/></span>
+     <span class="data tooltip" ng-init = "tempVal = true" ng-show = "tempVal" ng-click = "tempVal = !tempVal">{{ fTemp }}&deg;F<span class="tooltiptext">click me to change</span></span>
+      <span class="data tooltip"  ng-show = "!tempVal" ng-click = "tempVal = !tempVal">{{ cTemp }}&deg;C<span class="tooltiptext">click me to change</span></span>
+     <span id="unit">{{ name }}</span><span id="alt">{{ country }}</span> -->
+
+    <div class="article-font">
+      <p>{{localCity}}|{{country}}</p>
+      <p><span class="data " ng-init = "tempVal = true" ng-show = "tempVal" ng-click = "tempVal = !tempVal">{{ fTemp }}&deg;F</span>
+      <span class="data "  ng-show = "!tempVal" ng-click = "tempVal = !tempVal">{{ cTemp }}&deg;C
+  <!--       <span class="tooltiptext">click me to change</span> -->
+        </span>, {{weather.main | uppercase}}
+      </p>
+    </div>
+    <img  id = "#icon" align = "top" ng-src = "{{ icon }}"/>
+
+    <footer class="footer">
+    <a class="footer-font" href="http://www.diaoweidong.com">by Weidong Diao</a>
+  </footer>
+
+    </body>
 
 </html>
