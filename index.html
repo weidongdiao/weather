@@ -42,9 +42,71 @@
     </div>
     <img  id = "#icon" align = "top" ng-src = "{{ icon }}"/>
 
+<div id="map"></div>
+
     <footer class="footer">
     <a class="footer-font" href="http://www.diaoweidong.com">by Weidong Diao</a>
   </footer>
+
+  <script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          // center: {lat: -34.397, lng: 150.644},
+          zoom: 10
+        });
+        var marker = new google.maps.Marker({
+          // position: {lat: -34.397, lng: 150.644},
+          map: map,
+          draggable: true,
+          animation: google.maps.Animation.DROP
+        });
+        marker.addListener('click', toggleBounce);
+        function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+      }
+        //var infoWindow = new google.maps.InfoWindow({map: map});
+
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            marker.setPosition(pos);
+            //infoWindow.setPosition(pos);
+            //infoWindow.setContent('Location found.');
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        marker.setPosition(pos);
+
+        marker.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA63EYNQlI_VqyowN6UFEO4FAu_QBkm5R4&callback=initMap&region=en&language=EN">
+    </script>
 
     </body>
 
