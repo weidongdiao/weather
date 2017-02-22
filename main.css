@@ -81,6 +81,13 @@ input {
   border-style: solid;
   border-color: transparent transparent black transparent; }
 
+  #map {
+        height: 400px;
+        width: 100%;
+        border: 3px solid $second-color;
+       }
+
+
 footer {
   position: relative;
   margin-top: 50px;
